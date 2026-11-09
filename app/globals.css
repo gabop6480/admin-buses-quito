@@ -1,0 +1,32 @@
+:root { --tinta: #1d2733; --papel: #f4f5f2; --linea: #d6dad4; --verde: #0f5c4d; --rojo: #b3261e; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.5 "Segoe UI", system-ui, sans-serif; color: var(--tinta); background: var(--papel); }
+a { color: inherit; text-decoration: none; }
+.shell { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+.nav { background: var(--tinta); color: #e8ece9; padding: 20px 14px; display: flex; flex-direction: column; gap: 2px; }
+.nav h1 { font-size: 16px; margin: 0 8px 16px; font-weight: 600; }
+.nav a, .nav button { padding: 8px 10px; border-radius: 4px; color: inherit; background: none; border: 0; text-align: left; font: inherit; cursor: pointer; }
+.nav a:hover, .nav button:hover { background: #2b394a; }
+.nav form { margin-top: auto; }
+main { padding: 28px 32px; max-width: 1100px; }
+h2 { margin: 0 0 18px; font-size: 22px; }
+table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--linea); }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--linea); }
+th { font-weight: 600; background: #eceee9; }
+td.acc { white-space: nowrap; text-align: right; }
+button, select, input { font: inherit; }
+.btn { padding: 7px 14px; border: 1px solid var(--tinta); background: #fff; border-radius: 4px; cursor: pointer; }
+.btn.pri { background: var(--verde); border-color: var(--verde); color: #fff; }
+.btn.pel { color: var(--rojo); border-color: var(--rojo); }
+.btn:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+.form { background: #fff; border: 1px solid var(--linea); padding: 20px; margin-bottom: 20px; display: grid; gap: 14px; max-width: 520px; }
+.form label { display: grid; gap: 4px; font-weight: 600; }
+.form label small { font-weight: 400; color: #5b6670; }
+.form input, .form select { padding: 8px; border: 1px solid #aab1aa; border-radius: 4px; background: #fff; }
+.form input[type=checkbox] { width: 18px; height: 18px; }
+.fila { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.fila select { flex: 1; }
+.error { color: var(--rojo); margin: 0 0 14px; font-weight: 600; }
+.vacio { padding: 28px; text-align: center; color: #5b6670; background: #fff; border: 1px dashed var(--linea); }
+.login { max-width: 340px; margin: 12vh auto; }
+@media (max-width: 760px) { .shell { grid-template-columns: 1fr; } .nav { flex-direction: row; flex-wrap: wrap; } main { padding: 18px; } table { display: block; overflow-x: auto; } }
