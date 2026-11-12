@@ -3,6 +3,8 @@
 Módulo de administración (MVC) que alimenta el core del sistema de monitoreo en tiempo real de buses de Quito (SIU/SAE). Proyecto de Ingeniería Web, UDLA.
  
 **Deploy:** https://admin-buses-quito.vercel.app/
+
+**Youtube** https://youtu.be/bUu1B0VtOIk
  
 ## Qué administra
  
