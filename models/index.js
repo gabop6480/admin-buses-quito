@@ -60,3 +60,35 @@ export const Turno = def('Turno', {
   chofer: ref('Chofer'), unidad: ref('Unidad'),
   inicio: { type: Date, required: true }, fin: { type: Date, required: true },
 });
+
+// ---------- CORE ----------
+
+// Serie de tiempo de MongoDB: una lectura por unidad cada pocos segundos
+export const DatoTiempoReal = models.DatoTiempoReal || model('DatoTiempoReal', new Schema({
+  instante: { type: Date, default: Date.now, required: true },
+  unidad: ref('Unidad'),
+  paradaSiguiente: ref('Parada'),
+  ubicacion: { type: { type: String, enum: ['Point'], default: 'Point' }, coordinates: { type: [Number], required: true } },
+  velocidad: { type: Number, required: true, min: 0 },
+  pasajerosABordo: { type: Number, required: true, min: 0 },
+  pasajerosEsperando: { type: Number, required: true, min: 0 },
+  paradaSolicitada: { type: Boolean, default: false },
+}, {
+  timestamps: false,
+  timeseries: { timeField: 'instante', metaField: 'unidad', granularity: 'seconds' },
+}));
+
+export const Accion = def('Accion', {
+  tipo: { type: String, enum: ['omitir_paradas', 'detenerse_obligatoriamente'], required: true },
+  estado: { type: String, enum: ['propuesta', 'emitida', 'confirmada', 'ejecutada', 'incumplida', 'rechazada'], default: 'propuesta' },
+  motivo: texto(),
+  dato: { type: Schema.Types.ObjectId },                // lectura que originó la acción
+  unidad: ref('Unidad'),
+  chofer: { type: Schema.Types.ObjectId, ref: 'Chofer' },
+  paradas: [{ _id: false, parada: ref('Parada'), orden: { type: Number, required: true } }],  // ACCION_PARADA embebida
+  accionEnlazada: { type: Schema.Types.ObjectId, ref: 'Accion' },
+  accionOrigen: { type: Schema.Types.ObjectId, ref: 'Accion' },
+  aprobadaPor: { type: Schema.Types.ObjectId, ref: 'Usuario' },
+  emitidaEn: Date,
+  venceEn: Date,
+});

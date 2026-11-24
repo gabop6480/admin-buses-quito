@@ -53,10 +53,12 @@ export const RECURSOS = {
 
   unidades: {
     modelo: Unidad, populate: 'ruta', filtros: ['ruta'], refs: { ruta: Ruta }, usado: [[Turno, 'unidad']],
-    preparar(b) {
+    async preparar(b, id) {
       b.placa = (b.placa || '').toUpperCase().trim();
       if (!placaValida(b.placa)) return 'La placa debe tener el formato ABC-1234.';
       if (!Number.isInteger(+b.capacidad) || +b.capacidad < 1 || +b.capacidad > 200) return 'La capacidad debe ser un entero entre 1 y 200.';
+      b.claveDispositivo = (b.claveDispositivo || '').trim();
+      if (b.claveDispositivo && (await Unidad.exists({ claveDispositivo: b.claveDispositivo, _id: { $ne: id } }))) return 'Esa clave de dispositivo ya está asignada a otra unidad.';
     },
   },
 
